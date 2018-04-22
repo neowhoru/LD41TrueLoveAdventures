@@ -562,11 +562,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: True Love Adventures
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: C:\Dropbox\games\unity\LD41\True Love Adventures\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 000ac09b79f9d401
   metroApplicationDescription: True Love Adventures
   wsaImages: {}
   metroTileShortName: 

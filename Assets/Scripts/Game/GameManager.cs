@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
 						SwitchEmotion(2);
 						UpdateLoveProgress(10, true);
 						womenTrigger.dialog.sentences = new string[1];
-						womenTrigger.dialog.sentences[0] = "What the hell? This has no caffeine! I am disapointed.";
+						womenTrigger.dialog.sentences[0] = "What the hell? This is not what i want! I am disapointed.";
 						HideWearingItem();
 						playPositiveSound = false;
 					}
@@ -170,8 +170,10 @@ public class GameManager : MonoBehaviour
 						playPositiveSound = true;
 					}else {
 						SwitchEmotion(2);
-						// Women anger - substract
 						UpdateLoveProgress(10, true);
+						womenTrigger.dialog.sentences = new string[1];
+						womenTrigger.dialog.sentences[0] = "Uhh this doesnt taste! I thought you know me better.";
+						HideWearingItem();
 						playPositiveSound = false;
 					}
 					break;
@@ -184,14 +186,16 @@ public class GameManager : MonoBehaviour
 						HideWearingItem();
 						UpdateLoveProgress(33, false);
 						womenTrigger.dialog.sentences = new string[1];
-						womenTrigger.dialog.sentences[0] = "My favorite! I love you.";
+						womenTrigger.dialog.sentences[0] = " Thanks that was the right one! I love you.";
 						playerHandler.questState = 3;
 						playPositiveSound = true;
 
 					}else {
 						SwitchEmotion(2);
-						// Women anger - substract
 						UpdateLoveProgress(10, true);
+						womenTrigger.dialog.sentences = new string[1];
+						womenTrigger.dialog.sentences[0] = "That was the wrong! I thought you know me better ?!";
+						HideWearingItem();
 						playPositiveSound = false;
 					}
 					break;

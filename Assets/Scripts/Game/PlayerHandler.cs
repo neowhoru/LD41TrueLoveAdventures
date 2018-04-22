@@ -16,10 +16,15 @@ public class PlayerHandler : MonoBehaviour {
 
 	public int questState = 0;
 
-	private bool canDance = true;
+	private bool isDancing = false;
 	private bool isWomenInRange = false;
 
 	public ShopItem currentItem = null;
+
+	public GameObject explosionGo;
+
+	public AudioClip collectSound;
+	public AudioClip explosionSound;
 	
 	// Use this for initialization
 	void Awake () {
@@ -48,6 +53,7 @@ public class PlayerHandler : MonoBehaviour {
 		{
 			
 			// Moving Right
+			isDancing = false;
 			updateMovement = true;
 			xVelocity = maxVelocity;
 			Vector3 scale = transform.localScale;
@@ -59,6 +65,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsDancing",false);
 		} else if (h < 0){
 			// Moving left
+			isDancing = false;
 			updateMovement = true;
 			xVelocity = -maxVelocity;
 			Vector3 scale = transform.localScale;
@@ -70,6 +77,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsDancing",false);
 		} else if(vAxisRaw > 0) {
 			// Moving Right
+			isDancing = false;
 			updateMovement = true;
 			yVelocity = maxVelocity;
 			Vector3 scale = transform.localScale;
@@ -82,6 +90,7 @@ public class PlayerHandler : MonoBehaviour {
 		
 		} else if (vAxisRaw < 0) {
 			// Moving Right
+			isDancing = false;
 			updateMovement = true;
 			yVelocity = -maxVelocity;
 			Vector3 scale = transform.localScale;
@@ -93,6 +102,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsDancing",false);
 
 		} else {
+			isDancing = false;
 			myBody.velocity = new Vector3(0f, 0f, 0f);
 			anim.SetBool("IsWalkingFront", false);
 			anim.SetBool("IsWalkingX", false);
@@ -105,6 +115,13 @@ public class PlayerHandler : MonoBehaviour {
 		if (updateMovement)
 		{
 			myBody.velocity = new Vector3(xVelocity, yVelocity, 0f);	
+		}
+
+		if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Fire2"))
+		{
+			isDancing = true;
+			anim.SetBool("IsDancing",true); // ToDo: find a good way for dancing
+			
 		}
 		
 
@@ -146,7 +163,6 @@ public class PlayerHandler : MonoBehaviour {
 		if (other.CompareTag("Women"))
 		{
 			isWomenInRange = true;
-			canDance = false;
 			gameManager.ToggleHintBox();
 		}
 
@@ -155,14 +171,38 @@ public class PlayerHandler : MonoBehaviour {
 			// Give the Player the Iitem
 			currentItem = other.GetComponent<ShopItem>();
 			gameManager.AddWearingItem(currentItem.shopItem);
+			GetComponent<AudioSource>().clip = collectSound;
 			GetComponent<AudioSource>().Play();
 		}
+		
+		if (other.CompareTag("Enemy"))
+		{
+			if (isDancing)
+			{
+				GameObject explosion = GameObject.Instantiate(explosionGo);
+				explosion.transform.position = other.gameObject.transform.position;
+				Destroy(other.gameObject);
+				GetComponent<AudioSource>().clip = explosionSound;
+				GetComponent<AudioSource>().Play();
+				
+			}
+			else
+			{
+				GameObject explosion = GameObject.Instantiate(explosionGo);
+				explosion.transform.position = gameObject.transform.position;
+				GetComponent<AudioSource>().clip = explosionSound;
+				GetComponent<AudioSource>().Play();
+				Destroy(gameObject);
+				gameManager.GameOver();
+			}
+		}
 	}
+
+	
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
 		Debug.Log("Leave trigger " + other.tag);
-		canDance = true;
 		if (other.CompareTag("Women"))
 		{
 			isWomenInRange = false;
