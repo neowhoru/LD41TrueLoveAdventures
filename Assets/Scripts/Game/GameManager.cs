@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 						womenTrigger.dialog.sentences = new string[3];
 						womenTrigger.dialog.sentences[0] = "Thanks that was the right one.";
 						womenTrigger.dialog.sentences[1] = "The coffee was good but there is something missing too my coffee. Can you imagine what ?";
-						womenTrigger.dialog.sentences[2] = "It would be really sweet if you bring me this.";
+						womenTrigger.dialog.sentences[2] = "It would be really SWEET if you bring me this.";
 						playerHandler.questState = 1;
 						playPositiveSound = true;
 

@@ -41,8 +41,8 @@ public class PlayerHandler : MonoBehaviour {
 	
 	void PlayerWalkControllerOrKeyboard()
 	{
-		float h = Input.GetAxisRaw("Horizontal");
-		float vAxisRaw = Input.GetAxisRaw("Vertical");
+		float h = Input.GetAxis("Horizontal");
+		float vAxisRaw = Input.GetAxis("Vertical");
 
 		float xVelocity = myBody.velocity.x;
 		float yVelocity = myBody.velocity.y;
@@ -51,8 +51,7 @@ public class PlayerHandler : MonoBehaviour {
 		
 		if (h > 0)
 		{
-			
-			// Moving Right
+			Debug.Log("Moving Right");
 			isDancing = false;
 			updateMovement = true;
 			xVelocity = maxVelocity;
@@ -64,7 +63,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsWalkingBack", false);
 			anim.SetBool("IsDancing",false);
 		} else if (h < 0){
-			// Moving left
+			Debug.Log("Moving Left");
 			isDancing = false;
 			updateMovement = true;
 			xVelocity = -maxVelocity;
@@ -76,7 +75,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsWalkingBack", false);
 			anim.SetBool("IsDancing",false);
 		} else if(vAxisRaw > 0) {
-			// Moving Right
+			Debug.Log("Moving Down");
 			isDancing = false;
 			updateMovement = true;
 			yVelocity = maxVelocity;
@@ -89,7 +88,7 @@ public class PlayerHandler : MonoBehaviour {
 			anim.SetBool("IsDancing",false);
 		
 		} else if (vAxisRaw < 0) {
-			// Moving Right
+			Debug.Log("Moving Up");
 			isDancing = false;
 			updateMovement = true;
 			yVelocity = -maxVelocity;
@@ -114,7 +113,8 @@ public class PlayerHandler : MonoBehaviour {
 
 		if (updateMovement)
 		{
-			myBody.velocity = new Vector3(xVelocity, yVelocity, 0f);	
+			Debug.Log("Move Velocity X " + xVelocity + " Y " + yVelocity);
+			myBody.velocity = new Vector2(xVelocity, yVelocity);	
 		}
 
 		if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Fire2"))
